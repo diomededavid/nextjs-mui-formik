@@ -1,86 +1,94 @@
-import Image from 'next/image';
+import React from 'react';
 import styles from './page.module.css';
+import DynamicForm from '@/components/DynamicForm/DynamicForm'; // Make sure the path is correct
+import { forms } from '@/components/DynamicForm/interfaces'; // Assuming FormConfig is exported from interfaces
 
+const forms = [
+    {
+        name: 'contact',
+        title: 'Contact Us',
+        selector: 'contactform',
+        action: '/ajax/contact',
+        fields: [
+            {
+                name: 'firstname',
+                label: 'First Name',
+                maxlen: 120,
+                required: true,
+            },
+            {
+                name: 'surname',
+                label: 'Surname',
+                maxlen: 120,
+            },
+            {
+                name: 'email',
+                label: 'Email',
+                maxlen: 256,
+                validate: 'email',
+                required: true,
+            },
+            {
+                name: 'type',
+                label: 'Enquiry Type',
+                input: 'select',
+                options: [
+                    {
+                        label: 'General Enquiry',
+                        value: 'general',
+                    },
+                    {
+                        label: 'Support Request',
+                        value: 'support',
+                    },
+                    {
+                        label: 'Complaint',
+                        value: 'complaint',
+                    },
+                ],
+            },
+            {
+                name: 'subscribe',
+                label: 'Subscribe to newsletters',
+                input: 'checkbox',
+            },
+            {
+                name: 'message',
+                label: 'Message',
+                input: 'textarea',
+                required: true,
+            },
+        ],
+    },
+    {
+        name: 'website-search',
+        title: 'Website Search',
+        selector: 'searchform',
+        action: '/ajax/search',
+        submit: 'Search',
+        fields: [
+            {
+                name: 'term',
+                label: 'What you looking for',
+                maxlen: 256,
+                validate: 'email',
+                required: true,
+            },
+            {
+                name: 'lucky',
+                label: 'Feeling lucky',
+                input: 'checkbox',
+                value: false,
+            },
+        ],
+    },
+];
 export default function Home() {
     return (
         <main className={styles.main}>
-            <div className={styles.description}>
-                <p>
-                    Get started by editing&nbsp;
-                    <code className={styles.code}>src/app/page.tsx</code>
-                </p>
-                <div>
-                    <a
-                        href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        By{' '}
-                        <Image
-                            src="/vercel.svg"
-                            alt="Vercel Logo"
-                            className={styles.vercelLogo}
-                            width={100}
-                            height={24}
-                            priority
-                        />
-                    </a>
-                </div>
-            </div>
-
-            <div className={styles.center}>
-                <Image className={styles.logo} src="/next.svg" alt="Next.js Logo" width={180} height={37} priority />
-            </div>
-
-            <div className={styles.grid}>
-                <a
-                    href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className={styles.card}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <h2>
-                        Docs <span>-&gt;</span>
-                    </h2>
-                    <p>Find in-depth information about Next.js features and API.</p>
-                </a>
-
-                <a
-                    href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className={styles.card}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <h2>
-                        Learn <span>-&gt;</span>
-                    </h2>
-                    <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-                </a>
-
-                <a
-                    href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className={styles.card}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <h2>
-                        Templates <span>-&gt;</span>
-                    </h2>
-                    <p>Explore starter templates for Next.js.</p>
-                </a>
-
-                <a
-                    href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                    className={styles.card}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <h2>
-                        Deploy <span>-&gt;</span>
-                    </h2>
-                    <p>Instantly deploy your Next.js site to a shareable URL with Vercel.</p>
-                </a>
-            </div>
+            {forms.map((form) => (
+                <DynamicForm key={form.name} config={form.fields} />
+            ))}
         </main>
     );
 }

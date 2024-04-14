@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body > div {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.genericform {
+    width: 400px;
+    margin: 0 auto;
+}
+.genericform label {
+    font-size: 12px;
+    display: block;
+    margin-top: 10px;
+}
+button {
+    margin-top: 10px;
+}
